@@ -6,13 +6,29 @@ import './App.css';
 // import ChildName from './ParentChild/ChildName';
 // import ParentName from './ParentChild/ParentName';
 // import ParentComponent from './ParentChild/ParentComponent';
-import EmployeeList from './List/EmployeeList';
-import ChartItem from './List/ChartItem';
+// import EmployeeList from './List/EmployeeList';
+// import ChartItem from './List/ChartItem';
+// import EmployeeForm from './form/EmployeeForm';
+// import ChartList from './form/ChartList';
+import CartListRedux from './View/CartListReduce';
+import CartListToolkit from './View/CartListToolkit';
+import RegionView from './ViewAPI/regionView';
+import CountryView from './ViewAPI/countryView'
+import LocationView from './ViewAPI/locationView'
+import DepartmentView from './ViewAPI/departmentView'
+import EmployeeView from './ViewAPI/employeeView'
+import JobView from './ViewAPI/jobView';
+import DependentView from './ViewAPI/dependentView';
 function App() {
   return (
     <div>
-      <EmployeeList/>
-      <ChartItem/>
+      <RegionView/>
+      <CountryView/>
+      <LocationView/>
+      <DepartmentView/>
+      <EmployeeView/>
+      <JobView/>
+      <DependentView/>
     </div>
   );
 }
