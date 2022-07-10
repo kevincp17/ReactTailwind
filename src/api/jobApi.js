@@ -10,4 +10,22 @@ const list = async()=>{
     }
 }
 
-export default {list}
+const create = async(payload)=>{
+    try {
+        const result = await axios.post(`${config.domain}/job/`,payload)
+        return result
+    } catch (error) {
+        return await error.message
+    }
+}
+
+const deletes = async(id)=>{
+    try {
+        const result = await axios.delete(`${config.domain}/job/${id}`)
+        return result.data
+    } catch (error) {
+        return await error.message
+    }
+}
+
+export default {list,create,deletes}
