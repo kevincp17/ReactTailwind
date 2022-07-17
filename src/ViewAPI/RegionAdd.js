@@ -3,7 +3,7 @@ import React from 'react'
 export default function RegionAdd(props) {
   return (
     <div>
-        <form onSubmit={props.onSubmitForm}>
+        <form onSubmit={props.onSubmit}>
             <div>
                 <label>Region Name : </label>
                 <input type="text" placeHolder="Region Name" 

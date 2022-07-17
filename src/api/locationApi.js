@@ -19,13 +19,30 @@ const create = async(payload)=>{
     }
 }
 
-const deletes = async(id)=>{
+const findOne = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/location/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const update = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/location/${data.location_id}`,data)
+        return result
+    } catch (error) {
+        return error
+    }
+}
+
+const deleted = async(id)=>{
     try {
         const result = await axios.delete(`${config.domain}/location/${id}`)
-        return result.data
+        return result
     } catch (error) {
         return await error.message
     }
 }
 
-export default {list,create,deletes}
+export default {list,create,deleted,findOne,update}

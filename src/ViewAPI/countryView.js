@@ -1,15 +1,17 @@
 import React,{useState,useEffect} from 'react'
 import countryApi from '../api/countryApi'
 import CountryAdd from './CountryAdd'
+import CountryEdit from './CountryEdit'
 
 export default function CountryView() {
  const [country,setCountry] = useState([])
  const [display,setDisplay]=useState(false)
+ const [displayEdit, setDisplayEdit] = useState(false)
  const [refresh,setRefresh]=useState(false)
+ const [id, setId] = useState({})
  const [values,setValues]=useState({
-        country_id:'',
-        country_name:'',
-        region_id:0
+        country_id:undefined,
+        country_name:undefined
 })
 
 useEffect(() => {
@@ -21,6 +23,21 @@ useEffect(() => {
 
 const handleOnChange = name => event =>{
     setValues({...values, [name] : event.target.value})
+}
+
+const onEdit = async () => {
+    const payload = {
+        country_id: (id.countryID),
+        country_name: (values.country_name)
+    }
+
+    await countryApi.update(payload)
+        .then(() => {
+            setDisplayEdit(false)
+            setRefresh(true)
+            window.alert('Data Successfully Edit')
+        })
+
 }
 
 const onSubmit = async() =>{
@@ -46,12 +63,26 @@ const onDelete= async(id) =>{
     })
 }
 
+const onClick = (countryID) => {
+    setDisplayEdit(true)
+    setId(countryID)
+}
+
   return (
     <div>
         <div>
                 <h2>List Country</h2>
                 <button onClick={()=> setDisplay(true)}> Add Country </button>
                 {
+                    displayEdit
+                    ?
+                    <CountryEdit
+                        onSubmit={onEdit}
+                        handleOnChange={handleOnChange}
+                        id={id}
+                        setDisplay={setDisplayEdit}
+                    />
+                    :
                     display ?
                     <CountryAdd
                     onSubmitForm = {onSubmit}
@@ -74,7 +105,10 @@ const onDelete= async(id) =>{
                                                 <td>{count && count.locations.map(loc => (
                                                     loc.street_address+'; '
                                                 ))}</td>
-                                                <td><button onClick={()=> onDelete(count.country_id)}> Delete Country </button></td>
+                                                <td>
+                                                    <button onClick={()=> onDelete(count.country_id)}> Delete Country </button>
+                                                    <button onClick={() => onClick({ countryID: count.country_id })}> Edit Country </button>
+                                                </td>
                                             </tr>
                                         ))
                                     }
